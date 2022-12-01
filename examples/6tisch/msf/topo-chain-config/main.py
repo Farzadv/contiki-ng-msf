@@ -9,6 +9,8 @@ import random
 print('====> INPUT PARAMITER    =   ', str(sys.argv))
 param_input = sys.argv
 
+user_home_path = os.path.expanduser('~')
+
 node_num = get_val_from_input_array(param_input, "node_num")
 server_num = get_val_from_input_array(param_input, "server_num")
 relay_node_num = get_val_from_input_array(param_input, "relay_node_num")
@@ -165,13 +167,11 @@ sdn_template = add_mote_id("ZXCVBN", mote_id)
 sdn_template = set_simulation_time("EDCRFV")
 
 
-file_w = open("/home/fvg/contiki-ng/examples/6tisch/msf/topo-chain-config/config.csc", "w+")
+file_w = open(user_home_path + "/contiki-ng/examples/6tisch/msf/topo-chain-config/config.csc", "w+")
 file_w.write(sdn_template)
 file_w.close()
 
-if os.path.exists("/home/fvg/contiki-ng/examples/6tisch/msf/config.csc"):
-    os.remove("/home/fvg/contiki-ng/examples/6tisch/msf/config.csc")
-else:
-    print("config.csc does not exist in directory.../sdn_udp/")
-newPath = shutil.copy('/home/fvg/contiki-ng/examples/6tisch/msf/topo-chain-config/config.csc', '/home/fvg/contiki-ng/examples/6tisch/msf')
-print("====> CONFIG-SDN file is created and added to .../sdn_udp/ directory")
+if os.path.exists(user_home_path + "/contiki-ng/examples/6tisch/msf/config.csc"):
+    os.remove(user_home_path + "/contiki-ng/examples/6tisch/msf/config.csc")
+
+newPath = shutil.copy(user_home_path + "/contiki-ng/examples/6tisch/msf/topo-chain-config/config.csc", user_home_path + "/contiki-ng/examples/6tisch/msf")

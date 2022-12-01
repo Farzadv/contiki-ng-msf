@@ -41,11 +41,11 @@ then
 fi
 
 ######################################################################### 
-NODE_NUM_LIST=(5 10 25)                        # network size included Sink
-NODE_END_APP=(4 9 24)                       # number of critic nodes
+NODE_NUM_LIST=(2 3 4)                        # network size included Sink
+NODE_END_APP=(1 2 3)                       # number of critic nodes
 SRVR_NUM=1
-ITER_PER_CONF=5                           # number of iteration for each config.csc
-LQR_LIST=(0.84)
+ITER_PER_CONF=10                           # number of iteration for each config.csc
+LQR_LIST=(0.95 0.84 0.71)
 
 LIST_SIZE=${#NODE_NUM_LIST[*]}            # traffic array len
 LQR_LIST_SIZE=${#LQR_LIST[*]}
@@ -60,7 +60,7 @@ do
         i=1
         while [[ $i -le $ITER_PER_CONF ]]
         do
-            python3 /home/fvg/contiki-ng/examples/6tisch/msf/topo-rand-config/main.py \
+            python3 /home/fvg/contiki-ng/examples/6tisch/msf/topo-chain-config/main.py \
             node_num=[${NODE_NUM_LIST[j]}] \
             server_num=[$SRVR_NUM] \
             relay_node_num=[$((${NODE_NUM_LIST[j]}-${NODE_END_APP[j]}-SRVR_NUM))] \
@@ -68,7 +68,6 @@ do
             tx_range=[50] \
 	    tx_success=[1.0] \
 	    rx_success=[${LQR_LIST[k]}] \
-	    itr=[$i] \
             sim_time_sdn=[6000000]
 
             java -Xshare:on -jar ../../../tools/cooja/dist/cooja.jar -nogui=config.csc -contiki=../../../

@@ -10,11 +10,14 @@ import random
 print('====> INPUT PARAMITER    =   ', str(sys.argv))
 param_input = sys.argv
 
+user_home_path = os.path.expanduser('~')
+
 node_num = get_val_from_input_array(param_input, "node_num")
 server_num = get_val_from_input_array(param_input, "server_num")
 relay_node_num = get_val_from_input_array(param_input, "relay_node_num")
 end_node_num = get_val_from_input_array(param_input, "end_node_num")
 tx_range = get_val_from_input_array(param_input, "tx_range")  # meter
+intf_range = get_val_from_input_array(param_input, "intf_range")
 tx_success = get_val_from_input_array(param_input, "tx_success")
 rx_success = get_val_from_input_array(param_input, "rx_success")
 sim_time_sdn = get_val_from_input_array(param_input, "sim_time_sdn")
@@ -58,7 +61,7 @@ print("====> MTYPE VALUES    =    ", mtype_num)
 
 position_array = []
 # position_array = create_network_graph(node_num, tx_range)
-pos_log = open("/home/fvg/contiki-ng/examples/6tisch/msf/topo_graph", "r+")
+pos_log = open(user_home_path + "/contiki-ng/examples/6tisch/msf/topo_graph", "r+")
 input_lines = pos_log.readlines()
 pos_log.close()
 pos_log_key = 'pos-net' + str(node_num) + '-lqr' + str(rx_success) + '-it' + str(itr) + '='
@@ -165,8 +168,8 @@ def set_radio_medium(conf_key, replace_conf):
     mote_type = ''
     if conf_key in sdn_template:
         mote_type += replace_conf
-        mote_type = mote_type.replace("TX_RANGE", str(50.0))
-        mote_type = mote_type.replace("INT_RANGE", str(100.0))
+        mote_type = mote_type.replace("TX_RANGE", str(tx_range))
+        mote_type = mote_type.replace("INT_RANGE", str(intf_range))
         mote_type = mote_type.replace("TX_SUCCESS", str(tx_success))
         mote_type = mote_type.replace("RX_SUCCESS", str(rx_success))
 
@@ -204,13 +207,13 @@ sdn_template = add_mote_id("ZXCVBN", mote_id)
 sdn_template = set_simulation_time("EDCRFV")
 
 
-file_w = open("/home/fvg/contiki-ng/examples/6tisch/msf/topo-chain-config/config.csc", "w+")
+file_w = open(user_home_path + "/contiki-ng/examples/6tisch/msf/topo-chain-config/config.csc", "w+")
 file_w.write(sdn_template)
 file_w.close()
 
-if os.path.exists("/home/fvg/contiki-ng/examples/6tisch/msf/config.csc"):
-    os.remove("/home/fvg/contiki-ng/examples/6tisch/msf/config.csc")
+if os.path.exists(user_home_path + "/contiki-ng/examples/6tisch/msf/config.csc"):
+    os.remove(user_home_path + "/contiki-ng/examples/6tisch/msf/config.csc")
 else:
     print("config.csc does not exist in directory.../sdn_udp/")
-newPath = shutil.copy('/home/fvg/contiki-ng/examples/6tisch/msf/topo-chain-config/config.csc', '/home/fvg/contiki-ng/examples/6tisch/msf')
+newPath = shutil.copy(user_home_path + "/contiki-ng/examples/6tisch/msf/topo-chain-config/config.csc", user_home_path + "/contiki-ng/examples/6tisch/msf")
 print("====> CONFIG-SDN file is created and added to .../sdn_udp/ directory")
