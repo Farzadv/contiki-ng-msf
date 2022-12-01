@@ -21,7 +21,7 @@ then
 fi
 
 ######################################################################### 
-NODE_NUM_LIST=(30)                        # network size included Sink
+NODE_NUM_LIST=(10 20 30 40 50)                        # network size included Sink
 
 SRVR_NUM=1
 ITER_PER_CONF=1                           # number of iteration for each config.csc (max = 10)
