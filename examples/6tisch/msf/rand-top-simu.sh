@@ -22,7 +22,7 @@ fi
 
 ######################################################################### 
 NODE_NUM_LIST=(30)                        # network size included Sink
-NODE_END_APP=(29)                         # number of nodes that have data flow
+
 SRVR_NUM=1
 ITER_PER_CONF=1                           # number of iteration for each config.csc (max = 10)
 LQR_LIST=(0.0)                            # link quality metric of cooja: means at the max tx-range link quality is 0 (decresing by distance)
@@ -43,8 +43,8 @@ do
             python3 ~/contiki-ng/examples/6tisch/msf/topo-rand-config/main.py \
             node_num=[${NODE_NUM_LIST[j]}] \
             server_num=[$SRVR_NUM] \
-            relay_node_num=[$((${NODE_NUM_LIST[j]}-${NODE_END_APP[j]}-SRVR_NUM))] \
-            end_node_num=[${NODE_END_APP[j]}] \
+            relay_node_num=[0] \
+            end_node_num=[$((${NODE_NUM_LIST[j]}-SRVR_NUM))] \
             tx_range=[100.0] \
             intf_range=[150.0] \
 	    tx_success=[1.0] \
