@@ -61,7 +61,7 @@ print("====> MTYPE VALUES    =    ", mtype_num)
 
 position_array = []
 # position_array = create_network_graph(node_num, tx_range)
-pos_log = open(user_home_path + "/contiki-ng/examples/6tisch/msf/topo_graph", "r+")
+pos_log = open("topo_graph", "r+")
 input_lines = pos_log.readlines()
 pos_log.close()
 pos_log_key = 'pos-net' + str(node_num) + '-lqr' + str(rx_success) + '-it' + str(itr) + '='
@@ -207,13 +207,18 @@ sdn_template = add_mote_id("ZXCVBN", mote_id)
 sdn_template = set_simulation_time("EDCRFV")
 
 
-file_w = open(user_home_path + "/contiki-ng/examples/6tisch/msf/topo-chain-config/config.csc", "w+")
+file_w = open("config.csc", "w+")
 file_w.write(sdn_template)
 file_w.close()
 
-if os.path.exists(user_home_path + "/contiki-ng/examples/6tisch/msf/config.csc"):
-    os.remove(user_home_path + "/contiki-ng/examples/6tisch/msf/config.csc")
-else:
-    print("config.csc does not exist in directory.../sdn_udp/")
-newPath = shutil.copy(user_home_path + "/contiki-ng/examples/6tisch/msf/topo-chain-config/config.csc", user_home_path + "/contiki-ng/examples/6tisch/msf")
+if os.path.exists("../config.csc"):
+    os.remove("../config.csc")
+    
+newPath = shutil.copy("config.csc", "../")
 print("====> CONFIG-SDN file is created and added to .../sdn_udp/ directory")
+
+
+
+
+
+

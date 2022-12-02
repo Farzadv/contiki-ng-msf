@@ -21,7 +21,7 @@ then
 fi
 
 ######################################################################### 
-NODE_NUM_LIST=(10 20 30 40 50)                        # network size included Sink
+NODE_NUM_LIST=(50)                        # network size included Sink
 
 SRVR_NUM=1
 ITER_PER_CONF=1                           # number of iteration for each config.csc (max = 10)
@@ -40,7 +40,7 @@ do
         i=1
         while [[ $i -le $ITER_PER_CONF ]]
         do
-            python3 ~/contiki-ng/examples/6tisch/msf/topo-rand-config/main.py \
+            python3 topo-rand-config/main.py \
             node_num=[${NODE_NUM_LIST[j]}] \
             server_num=[$SRVR_NUM] \
             relay_node_num=[0] \
@@ -50,15 +50,15 @@ do
 	    tx_success=[1.0] \
 	    rx_success=[${LQR_LIST[k]}] \
 	    itr=[$i] \
-            sim_time_sdn=[6000000]
+            sim_time_sdn=[60000]
 
             java -Xshare:on -jar ../../../tools/cooja/dist/cooja.jar -nogui=config.csc -contiki=../../../
         
         
             if [ -f "COOJA.testlog" ] 
             then
-                mv ~/contiki-ng/examples/6tisch/msf/COOJA.testlog \
-	        ~/contiki-ng/examples/6tisch/msf/statistic/log/msf-net-${NODE_NUM_LIST[j]}-itr-$i-lqr${LQR_LIST[k]}.testlog
+                mv COOJA.testlog \
+	        statistic/log/msf-net-${NODE_NUM_LIST[j]}-itr-$i-lqr${LQR_LIST[k]}.testlog
             fi
         
             i=$(($i+1))
