@@ -50,7 +50,7 @@ do
 	    tx_success=[1.0] \
 	    rx_success=[${LQR_LIST[k]}] \
 	    itr=[$i] \
-            sim_time_sdn=[60000]
+            sim_time_sdn=[6000000]
 
             java -Xshare:on -jar ../../../tools/cooja/dist/cooja.jar -nogui=config.csc -contiki=../../../
         
